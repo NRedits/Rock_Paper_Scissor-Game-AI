@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors - AI</title>
+    <script>
+        async function play(choice) {
+            let response = await fetch('/play', {
+                method: 'POST',
+                body: JSON.stringify({choice: choice}),
+                headers: {'Content-Type': 'application/json'}
+            });
+            let result = await response.json();
+            document.getElementById('ai-choice').innerText = "AI chose: " + result.ai_choice;
+            document.getElementById('result').innerText = result.result;
+            document.getElementById('score').innerText = "Player: " + result.player_score + " | AI: " + result.ai_score;
+        }
+    </script>
+</head>
+<body>
+    <h1>Rock, Paper, Scissors - AI</h1>
+    <button onclick="play('Rock')">Rock 🪨</button>
+    <button onclick="play('Paper')">Paper 📄</button>
+    <button onclick="play('Scissors')">Scissors ✂️</button>
+    <h2 id="ai-choice">AI hasn't played yet</h2>
+    <h2 id="result">Make Your Move!</h2>
+    <h2 id="score">Player: 0 | AI: 0</h2>
+</body>
+</html>
